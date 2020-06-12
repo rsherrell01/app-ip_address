@@ -52,7 +52,6 @@ function getFirstIpAddress(cidrStr, callback) {
 function getIpv4MappedIpv6Address(ipv4) {
 
   // Initialize return argument
-  let ipv4Address = null;
   let ipv6Address = null;
 
   // Prepare to derive a Hex version of the dotted-quad decimal IPv4 address.
@@ -105,7 +104,7 @@ function main() {
   // Create some test data for getIpv4MappedIpv6Address, both valid and invalid.
   let sampleIpv4s = [ '172.16.10.1', '172.16.10.0/24', '172.16.10.0 255.255.255.0', '172.16.256.1', '1.1.1.-1'];
   let sampleIpv4sLen = sampleIpv4s.length;
-    
+
   // Iterate over sampleCidrs and pass the element's value to getFirstIpAddress().
   for (let i = 0; i < sampleCidrsLen; i++) {
     console.log(`\n--- Test Number ${i + 1} getFirstIpAddress(${sampleCidrs[i]}) ---`);
