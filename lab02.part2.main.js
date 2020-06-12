@@ -13,23 +13,6 @@ const IPCIDR = require('ip-cidr');
  * @param {callback} callback - A callback function.
  * @return {string} (firstIpAddress) - An IPv4 address.
  */
- /*
-  Import the built-in path module.
-  See https://nodejs.org/api/path.html
-  The path module provides utilities for working with file and directory paths.
-  IAP requires the path module to access local file modules.
-  The path module exports an object.
-  Assign the imported object to variable path.
-*/
-const path = require('path');
-
-/**
- * Import helper function module located in the same directory
- * as this module. IAP requires the path object's join method
- * to unequivocally locate the file module.
- */
-const { getIpv4MappedIpv6Address } = require(path.join(__dirname, 'ipv6.js'));
-
 function getFirstIpAddress(cidrStr, callback) {
 
   // Initialize return arguments for callback
@@ -66,7 +49,27 @@ function getFirstIpAddress(cidrStr, callback) {
  * @param {string} ipv4 - An IPv4 address in dotted-quad format.
  * @return {*} (ipv6Address) - An IPv6 address string or null if a run-time problem was detected.
  */
+function getIpv4MappedIpv6Address(ipv4) {
 
+  // Initialize return argument
+  let ipv4Address = null;
+  let ipv6Address = null;
+
+  // Prepare to derive a Hex version of the dotted-quad decimal IPv4 address.
+  // Split the IPv4 address into its four parts.
+  let ipv4Quads = ipv4.split('.');
+  // Count the number of parts found.
+  let numIpv4Segments = ipv4Quads.length;
+
+  // Verify IPv4 had four parts.
+  if (numIpv4Segments === 4) {
+    let validQuads = true;
+    // Iterate over the IPv4 address parts and verify each segment was a number between 0 and 255.
+    for(let i=0; i < numIpv4Segments; i++) {
+      if( isNaN(Number(ipv4Quads[i])) || ipv4Quads[i] < 0 || ipv4Quads[i] > 255 ) {
+        validQuads = false;
+      }
+    }
     // Passed IPv4 is valid. Now to derive an IPv4-mapped IPv6 address.
     if (validQuads) {
       // Hardcode the prefix. During refactor, we might want to make the prefix a const.
