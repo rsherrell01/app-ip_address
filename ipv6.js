@@ -2,7 +2,6 @@ function getIpv4MappedIpv6Address(ipv4) {
 
   // Initialize return argument
   let ipv6Address = null;
-  let ipv4Address = null;
 
   // Prepare to derive a Hex version of the dotted-quad decimal IPv4 address.
   // Split the IPv4 address into its four parts.
