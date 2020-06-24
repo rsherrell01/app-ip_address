@@ -25,7 +25,7 @@
         {
           "name": "cidrStr",
           "description": "The IPv4 subnet expressed in CIDR format.",
-          "type": "object",
+          "type": "string",
           "info": "Request subnet from IPAM.",
           "required": true,
           "schema": {
