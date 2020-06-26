@@ -16,10 +16,10 @@ const IPCIDR = require('ip-cidr');
 function getFirstIpAddress(cidrStr, callback) {
 
   // Initialize return arguments for callback
-  let firstIpAddress = null;
-  let firstIpAddressV6 = null;
-  let callbackError = null;
-  let jsonObject={ "ipv4":null ,"ipv6":null } ;
+  ipv4MappedIpv6 = {
+  ipv4: firstIpAddress,
+  ipv6: getIpv4MappedIpv6Address(firstIpAddress)
+};
 
   // Instantiate an object from the imported class and assign the instance to variable cidr.
   const cidr = new IPCIDR(cidrStr);
@@ -149,3 +149,5 @@ function main() {
   Call main to run it.
 */
 main();
+
+
